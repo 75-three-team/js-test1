@@ -1,0 +1,113 @@
+.big {
+    font-size: 48px;
+}
+
+.middle {
+    font-size: 36px;
+}
+
+.small {
+    font-size: 24px;
+}
+
+.progress {
+    .circle {
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        .out-half-left-circle {
+            position: absolute;
+            width: 1em;
+            height: 2em;
+            background: grey;
+            z-index: 4;
+        }
+        .out-half-right-circle {
+            z-index: 1;
+            position: absolute;
+            right: 0;
+            width: 1em;
+            height: 2em;
+            background: grey;
+        }
+        .in-half-left-circle {
+            z-index: 2;
+            position: absolute;
+            width: 1em;
+            height: 2em;
+            background: tomato;
+            border-radius: 1em 0 0 1em;
+            transform-origin: 100% 50%;
+        }
+        .in-half-right-circle {
+            z-index: 0;
+            position: absolute;
+            right: 0;
+            width: 1em;
+            height: 2em;
+            background: tomato;
+            border-radius: 0 1em 1em 0;
+            transform-origin: 0 50%;
+        }
+        .center {
+            width: 1.5em;
+            background: white;
+            height: 1.5em;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 10;
+            left: 0.25em;
+            top: 0.25em;
+            text-align: center;
+            font {
+                vertical-align: middle;
+                font-size: 0.5em;
+            }
+        }
+    }
+    .strip {
+        width: 3em;
+        height: 0.3em;
+        background: grey;
+        border-radius: 0.5em;
+        overflow: hidden;
+        .current {
+            width: 0;
+            height: 0.3em;
+            background-color: red;
+        }
+    }
+    .Hourglass {
+        width: 0;
+        height: 0;
+        border-top: 1em solid red;
+        border-left: 0.5em solid transparent;
+        border-right: 0.5em solid transparent;
+        border-bottom: 1em solid grey;
+        position: relative;
+        .top {
+            box-sizing: border-box;
+            width: 1em;
+            height: 0;
+            border-top: 0.5em solid grey;
+            border-left: 0.25em solid transparent;
+            border-right: 0.25em solid transparent;
+            position: absolute;
+            top: -1em;
+            left: -0.5em;
+        }
+        .bottom {
+            box-sizing: border-box;
+            width: 1em;
+            height: 0;
+            border-bottom: 0.5em solid red;
+            border-left: 0.25em solid transparent;
+            border-right: 0.25em solid transparent;
+            position: absolute;
+            bottom: -1em;
+            left: -0.5em;
+        }
+    }
+}
