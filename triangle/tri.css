@@ -1,0 +1,31 @@
+#tri{
+    overflow: hidden;
+    width: 40px;
+    height: 100px;
+
+}
+.t{
+    width: 0;
+    height: 0;
+    border-top: 35px solid lightgray;
+    border-bottom: 35px solid #000;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    position: relative;
+}
+.color{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-style: solid;
+    border-top-width: 35px;
+    border-bottom-width: 35px;
+    border-top-color: #000;
+    border-bottom-color:lightgray;
+    border-left-color:transparent;
+    border-right-color:transparent;
+    border-left-width: 20px;
+    border-right-width: 20px;
+    transition:all .5s;
+}

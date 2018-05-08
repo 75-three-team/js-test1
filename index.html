@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bar/bar.css">
+    <link rel="stylesheet" href="./triangle/tri.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="tri"></div>
+    <canvas id="circle" width="200" height="200"></canvas>
+    <div id="bar"></div>
+    <input type="text" id="input">
+    <button id="btn">submit</button>
+    <script src="./triangle/tri.js"></script>
+    <script src="./bar/bar.js"></script>
+    <script src="./circle/circle.js"></script>
+    <script>
+        let c=new circle();let b=new Bar();let t=new sand();
+        pluginController(c,b,t)
+        function pluginController(...funcs) {
+            const controller=document.querySelector('#btn');
+            if(controller){
+                controller.addEventListener('click',function () {
+                    let val = document.getElementById('input').value;
+                    if(val>100||val<0)
+                        return console.error('your input is invalid.')
+                    funcs.map(func=>func.begin(val));
+                })
+            }
+        }
+    </script>
+</body>
+</html>
