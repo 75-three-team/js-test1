@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #app {
+      position: relative;
+      width: 150px;
+      height: 20px;
+      top: 10px;
+      left: 10px;
+    }
+
+    .progress-rect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 20px;
+      background-color: darkgrey;
+      border-radius: 10px;
+    }
+
+    .progress-rect-front {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      border-radius: 10px;
+      background-color: rgb(40, 40, 228);
+    }
+
+    .progress-ring {
+      width: 220px;
+      height: 220px;
+    }
+
+    circle {
+      transition: stroke-dasharray .25s;
+    }
+
+    .progress-sandglass {
+      width: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-top: 60px solid darkgray;
+      border-bottom: 60px solid rgb(41, 44, 238);
+      position: relative;
+      margin: 10px;
+    }
+
+    .progress-sandglass-front {
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 20px solid darkgray;
+      border-top: 20px solid rgb(41, 44, 238);
+    }
+  </style>
+</head>
+<div id="app">
+  <div class="progress-rect">
+    <div class="progress-rect-front">
+
+    </div>
+  </div>
+</div>
+
+<body>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    (function (win, $) {
+      class progress {
+        constructor(options) {
+          this.$cont = $('#app');
+          this.options = options;
+          this._render(options);
+          this.domArr = [];
+        }
+        //模板样式选择
+        _render(options) {
+          let dom;
+          if (options.curStyle === 'rect') {
+            dom = this._renderRect();
+
+          } else if (options.curStyle === 'circle') {
+            dom = this._renderCircle();
+
+          } else {
+            dom = this._renderTriangle();
+          }
+          this._upDate(options);
+          this.$cont.html(dom);
+        }
+        // 模板渲染
+        _renderRect() {
+          // console.log('11')
+          this.domArr = ['<div class="progress-rect"></div>', '<div class="progress-rect-front"></div>'];
+          console.log(this.domArr.join(''))
+          return this.domArr.join('');
+        }
+        // 模板渲染
+
+        _renderCircle() {
+          return `<svg class='progress-ring' viewbox=' 0 0 220 220'>
+                      <circle cx="110" cy="110" r="85" stroke-width="25" stroke='blue' fill="none"></circle>
+                      <circle cx="110" cy="110" r="85" stroke-width="25" stroke='gray' fill="none" transform="matrix(0,-1,1,0,0,220)" stroke-dasharray="0 1069"></circle>
+                  </svg>`;
+        }
+        // 模板渲染
+        _renderTriangle() {
+          return `<div class='progress-sandglass'><div class='progress-sandglass-front'></div></div>`;
+        }
+        _upDate(options) {
+          if (options.curStyle === 'rect') {
+            let progressRect = this.domArr[0];
+            let progressRectFront = this.domArr[1];
+            let upDateDom =
+              `<div class="progress-rect-front" style='width: ${options.progressRate / 100 * 150}px'></div>`
+            this.domArr.pop()
+            this.domArr.unshift(upDateDom);
+            // console.log(this.domArr)
+
+          }
+        }
+        // _upDate() {
+
+        //   } else if (this.type === 'ring') {
+        //     let circle_0 = this.container.querySelectorAll("circle")[0],
+        //       circle_1 = this.container.querySelectorAll("circle")[1];
+        //     let percent = this.percentage / 100,
+        //       perimeter = Math.PI * 2 * parseInt(window.getComputedStyle(circle_0, null).r);
+        //     circle_1.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
+        //     console.log(perimeter * percent);
+        //     circle_0.setAttribute('stroke', this.backcolor);
+        //     circle_1.setAttribute('stroke', this.frontcolor);
+        //   } else {
+        //     let progressSand = this.container.querySelector('.progress-sandglass'),
+        //       progressSandFront = this.container.querySelector('.progress-sandglass-front');
+        //     let ans = 1 - this.percentage / 100;
+        //     progressSand.style.borderTop = `60px solid ${this.backcolor}`;
+        //     progressSand.style.borderBottom = `60px solid ${this.frontcolor}`;
+        //     progressSandFront.style.borderBottom = `${ans*60}px solid ${this.backcolor}`;
+        //     progressSandFront.style.borderTop = `${ans*60}px solid ${this.frontcolor}`;
+        //     progressSandFront.style.borderLeft = `${ans*30}px solid transparent`;
+        //     progressSandFront.style.borderRight = `${ans*30}px solid transparent`;
+        //   }
+        // }
+
+      }
+      win.progress = progress;
+    }(window, jQuery))
+    var bar = new progress({
+      progressBgColor: '#aaa',
+      progressTpColor: 'green',
+      curStyle: 'rect',
+      progressRate: 50,
+    })
+  </script>
+</body>
+
+</html>
