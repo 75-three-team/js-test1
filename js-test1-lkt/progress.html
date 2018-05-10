@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>demo</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<link rel="stylesheet" href="./bar/bar.css">
+    	<link rel="stylesheet" href="./triangle/tri.css">
+    	<style>
+    		#app{
+    			width: 300px;
+    			height: 200px;
+    			position: relative;
+    			background: #F2F2F2;
+    			margin-bottom: 10px;
+    		}
+			#bar{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-70%,-50%);
+			}
+			#tri{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-200%,-50%);
+			}
+    	</style>
+	</head>
+	<body>
+	    <div id="app"></div>
+	    <button id="rect">长条形</button>
+	    <button id="circ">圆形</button>
+	    <button id="tir">漏斗形</button><br/>
+	    <input type="text" id="input">
+	    <button id="btn">submit</button>
+
+
+	    <script src="./triangle/tri.js"></script>
+	    <script src="./bar/bar.js"></script>
+	    <script src="./circle/circle.js"></script>
+	    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	    <script>
+		(function (win, $) {
+	     	class progress {
+		        constructor(options) {
+		          this.$cont = $('#app');
+		          this.options = options;
+		          this._render(options);
+		          this.domArr;
+		        }
+		        //模板样式选择
+		        _render(options) {
+		          let dom;
+		          if (options.curStyle === 'rect') {
+		          	// if()
+		            this.$cont.html(`<div id="bar"></div>`);
+		            this._renderRect();
+		          } else if (options.curStyle === 'circle') {
+		            this.$cont.html(`<canvas id="circle" width="200" height="200"></canvas>`);
+		            this._renderCircle();
+		          } else {
+		            this.$cont.html(`<div id="tri"></div>`);
+		            this._renderTriangle();
+		          }
+		          this._upDate(options);
+		        }
+		        // 模板渲染
+		        _renderRect() {
+		          this.domArr=new Bar();
+		        }
+		        // 模板渲染
+		        _renderCircle() {
+		          this.domArr=new circle();
+		        }
+		        // 模板渲染
+		        _renderTriangle() {
+		          this.domArr=new sand();
+		        }
+		        _upDate(options) {
+				        const controller=document.querySelector('#btn');
+		            	if(controller){
+		                controller.addEventListener('click',function () {
+		                    let val = document.getElementById('input').value;
+		                    if(val>100||val<0)
+		                        return console.error('your input is invalid.')
+		                    this.domArr.begin(val);//开始画图
+		                }.bind(this))
+		            }
+		        }
+	    	}
+	      win.progress = progress;
+	    }(window, jQuery))
+	    rect.onclick=function(){
+	    	var bar = new progress({
+	    	curStyle: 'rect',
+	    	})
+	    }
+	    circ.onclick=function(){
+	    	var bar = new progress({
+	    	curStyle: 'circle',
+	    	})
+	    }
+	    tir.onclick=function(){
+	    	var bar = new progress({
+	    	curStyle: 'tir',
+	    	})
+	    }
+ 	</script>
+	</body>
+</html>
